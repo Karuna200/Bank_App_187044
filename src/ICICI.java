@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class ICICI implements RBI{
 
     HashMap<String, Float> mpp = new HashMap<String, Float>() ;
-    ArrayList<Customer> list = new ArrayList<>();
+    private static ArrayList<Customer> list = new ArrayList<>();
 
 
     private float min_balance = 1000.0f;
@@ -100,23 +100,16 @@ public class ICICI implements RBI{
 
     @Override
     public void addCustomer(Customer cus){
-      // int i;
         boolean bl = false;
-       // System.out.println(cus.getCustomerAadhar() + "    " + list.size());
-        for( int i = 0 ;i < list.size();i++){
-
+        for (int i = 0; i < list.size(); i++) {
             Customer c = list.get(i);
-            //System.out.println(c.getCustomerAadhar()+"  "+cus.getCustomerAadhar());
-            if(c.getCustomerAadhar().equalsIgnoreCase(cus.getCustomerAadhar()));
-            {
+            if (c.getCustomerAadhar().equalsIgnoreCase(cus.getCustomerAadhar())) {
                 bl = true;
             }
-
-
-       }
-      if(!bl){
-          list.add(cus);
-      }
+        }
+        if (!bl) {
+            list.add(cus);
+        }
 
     }
 
