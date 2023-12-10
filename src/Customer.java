@@ -1,19 +1,26 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Customer {
     String CustomerName, CustomerEmail, CustomerAadhar, CustomerAddress, CustomerPhone;
+    String bank;
+
+
     BufferedReader buff;
     InputStreamReader isr;
     float balance;
 
-    public Customer(String customerName, String customerEmail, String customerAadhar, String customerAddress, String customerPhone, float balance) {
+    public Customer(String customerName, String customerEmail, String customerAadhar, String customerAddress,String bank, String customerPhone, float balance) {
         this.CustomerName = customerName;
         this.CustomerEmail = customerEmail;
         this.CustomerAadhar = customerAadhar;
         this.CustomerAddress = customerAddress;
         this.CustomerPhone = customerPhone;
+        this.bank = bank;
         this.balance = balance;
+
     }
 
     public Customer(BufferedReader buff, InputStreamReader isr){
@@ -67,5 +74,13 @@ public class Customer {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 }

@@ -1,53 +1,61 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ICICI implements RBI{
 
-HashMap<String, Float> mpp = new HashMap<String, Float>() ;
+    HashMap<String, Float> mpp = new HashMap<String, Float>() ;
+    ArrayList<Customer> list = new ArrayList<>();
 
-    float balance;
 
-    final float min_balance = 50000.0f;
+    private float min_balance = 1000.0f;
     BufferedReader buff;
     InputStreamReader isr;
-    public ICICI (BufferedReader buff, InputStreamReader isr){
-        if(isr == null){
+
+
+    public ICICI(BufferedReader buff, InputStreamReader isr) {
+        if (isr != null) {
             this.isr = isr;
-        }
-        if(buff == null) {
-            this.buff = buff;
+        } else {
+            this.isr = new InputStreamReader(System.in); // Initialize isr if null
         }
 
+        if (buff != null) {
+            this.buff = buff;
+        } else {
+            this.buff = new BufferedReader(this.isr); // Initialize buff if null
+        }
     }
+
     @Override
-    public void depositMoney(){
+    public void depositMoney(Customer cus){
         System.out.println("Enter the amount you want to deposit: ");
         try {
             float amount = Float.parseFloat(buff.readLine());
-            balance += amount;
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        System.out.println("Your Deposited amount is: " + balance);
-    }
-    @Override
-    public void withdrawMoney(){
-        System.out.println("Enter the amount you want to withdraw: ");
-        try {
-            float amount = Float.parseFloat(buff.readLine());
-            balance -= amount;
+            cus.balance+= amount;
         }
         catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("Your amount is: " + balance);
+        System.out.println("Your amount is: " + cus.getBalance());
+    }
+    @Override
+    public void withdrawMoney(Customer cus){
+        System.out.println("Enter the amount you want to withdraw: ");
+        try {
+            float amount = Float.parseFloat(buff.readLine());
+            cus.balance -= amount;
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("Your amount is: " + cus.getBalance());
     }
 
     @Override
-    public void openFD(float amount, float ROI, int years) {
+    public void openFD(Customer cus,float amount, float ROI, int years) {
         float profit = amount;
         for (int i = 0; i < years; i++) {
             profit += (ROI / 100) * profit;
@@ -75,8 +83,8 @@ HashMap<String, Float> mpp = new HashMap<String, Float>() ;
         }
 
     @Override
-    public void applyCreditCard() {
-        if(balance > 2*min_balance){
+    public void applyCreditCard(Customer cus) {
+        if(cus.getBalance() > 2*min_balance){
             System.out.println("Eligible for CreditCard");
         }else{
             System.out.println("Not Eligible for CreditCard");
@@ -85,8 +93,37 @@ HashMap<String, Float> mpp = new HashMap<String, Float>() ;
     }
 
     @Override
-    public void getBalance() {
-        System.out.println("Your current balance is: " + balance);
+    public void getBalance(Customer cus) {
+        System.out.println("Your current balance is: " + cus.getBalance());
+    }
+
+
+    @Override
+    public void addCustomer(Customer cus){
+      // int i;
+        boolean bl = false;
+       // System.out.println(cus.getCustomerAadhar() + "    " + list.size());
+        for( int i = 0 ;i < list.size();i++){
+
+            Customer c = list.get(i);
+            //System.out.println(c.getCustomerAadhar()+"  "+cus.getCustomerAadhar());
+            if(c.getCustomerAadhar().equalsIgnoreCase(cus.getCustomerAadhar()));
+            {
+                bl = true;
+            }
+
+
+       }
+      if(!bl){
+          list.add(cus);
+      }
+
+    }
+
+    @Override
+    public int getTotalCustomer(){
+
+        return list.size();
     }
 
 }

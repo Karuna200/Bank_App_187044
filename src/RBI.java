@@ -5,16 +5,20 @@ import java.util.HashMap;
 
 public interface RBI {
 
+    void depositMoney(Customer cus);
 
-    void depositMoney();
+    void withdrawMoney(Customer cus);
 
-    void withdrawMoney();
-
-    void openFD(float amount, float ROI, int years);
+    void openFD(Customer cus,float amount, float ROI, int years);
 
     void applyLoan(String loanType, float amount, int years);
 
-    void applyCreditCard();
+    void applyCreditCard(Customer cus);
 
-    void getBalance();
+    void getBalance(Customer cus);
+
+    void addCustomer(Customer cus);
+
+    int getTotalCustomer();
+
 }
